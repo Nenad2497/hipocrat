@@ -1,0 +1,75 @@
+{% extends 'core.html' %}
+
+{% block content %}
+<h1 class="is-size-1 text-center fw-bold py-5">{{ object.name }}</h1>
+<div class="container d-flex py-4 mt-5 ">
+   <div class="box justify-content-center mr-5" style=" height: 30vh;">
+    <div class="d-flex mt-5 ">
+        <div style="width: 20vw;" class="d-flex  justify-content-center">  <h5> <strong> {{ object.name }}</strong></h5> </div>
+      </div>
+      <div class="d-flex ">
+          <div style="width: 20vw;" class="d-flex  justify-content-center">  <h6> <strong> {{ object.address }}</strong></h6> </div>
+        
+        </div>
+        <div class="d-flex ">
+          <div style="width: 20vw;" class="d-flex  justify-content-center">  <h6> <strong> {{ object.region }}</strong></h6> </div>
+        </div>
+        <div class="d-flex ">
+          <div style="width: 20vw;" class="d-flex  justify-content-center">  <h6> <strong> 0{{ object.phone }}</strong></h6> </div>
+        </div>
+        <div class="d-flex  justify-content-center">
+          <div class="d-flex  justify-content-start"> <h6> <strong class="ml-4"> {{ object.working_h }}</strong></h6> </div>
+        </div>
+   </div>
+   <div class="box p-0 justify-content-center"style="width:60vw; height: 45vh; margin-top:-7vh; margin-left:-2vw;">
+    <div style="width: 60vw; height: 45vh; " id="map"></div>
+   </div>
+</div>
+<h1 class="is-size-1 text-center fw-bold pt-5 pb-2">Lekari u ostanovi </h1>
+<h4 class="subtitle text-center"> ( <small>{{ object.name }}</small> ) </h4>
+<div class="container d-flex sm-d-grid justify-content-center align-items-center py-4 mt-5 ">
+{% for doctor in doctors %}
+      {% if object.slug == doctor.slug %}
+        <div class="box  col-md-2 justify-content-center  align-items-center col-sm-12 mr-5" style=" height: 32vh;">
+          <div class="d-flex ">
+            <div style="width: 20vw;" class="d-flex  justify-content-center"> <img style="width: 8vw; height: 14vh;" src="{{ doctor.profile_pic.url }}" class="rounded-circle" alt=""> </div>
+          </div>
+          <div class="d-flex mt-2">
+             <div style="width: 20vw;" class="d-flex  justify-content-center">  <h5> <strong> {{ doctor.name }}</strong></h5> </div>
+           </div>
+           <div class="d-flex ">
+               <div style="width: 20vw;" class="d-flex  justify-content-center">  <h6> <strong> {{ doctor.specialization }}</strong></h6> </div>
+           </div>
+           <div class="d-flex mt-2  pb-4 ">
+            <a href="{% url 'doctor_profile' doctor.pk%}" class="btn btn-primary m-auto is-uppercase">Zakaži</a>
+           </div>
+        </div>
+      {% endif %}
+{% endfor %}
+</div>
+<!--  ////////////////////////////////////////////////////SCRIPTS-->
+<!--  ////////////////////////////////////////////////////SCRIPTS-->
+<!--  ////////////////////////////////////////////////////SCRIPTS-->
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVZ4zv92G5Bi8h7qJkesmCPJlVm2uzSMs&callback=initMap"></script>
+<script>
+var latDjango =' {{ object.lat }}'
+var lngDjango =' {{ object.lng }}'
+var myLatlng = new google.maps.LatLng(latDjango,lngDjango);
+var mapOptions = {
+  zoom: 16,
+  center: myLatlng
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+var marker = new google.maps.Marker({
+    position: myLatlng,
+    title:"Hello World!"
+});
+
+// To add the marker to the map, call setMap();
+marker.setMap(map);
+</script>
+{% endblock content %}

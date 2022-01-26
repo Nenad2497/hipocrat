@@ -1,0 +1,70 @@
+{% extends 'core.html' %}
+
+{% block content %}
+<style>
+    @media (max-width:992px) {
+        .docPic{
+            width: 35vw !important;
+            height: 15vh !important;
+           
+        }
+    }
+</style>
+  {% for doctor_profile in doc_profiles %}
+        {% if doctor_profile == doc_id %}
+<section class="h-100 gradient-custom-2">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-9 col-xl-7">
+          <div class="card">
+            <div class="rounded-top text-white d-flex flex-row" style="background-color: #000;">
+              <div class="ms-4 mt-5 d-flex flex-column">
+                <img style="width: 10vw; height: 20vh;"  src="{{ doctor_profile.profile_pic.url }}" alt="Generic placeholder image" class="img-fluid img-thumbnail  docPic rounded-circle  mt-4 mb-2">
+              </div>
+            
+              <div class="ms-3 pb-3" style="margin-top: 13vh" >
+                <h5 >{{ doctor_profile }}</h5>
+                <p  style="margin-bottom:0vh;"><small style="color:gray">{{ doctor_profile.specialization }}</small> </p>
+              </div>
+            </div>
+         
+            <div class="p-4 text-black" style="background-color: #f8f9fa;">
+              <div class="d-flex justify-content-end text-center py-1">
+             
+                <div>
+                  <p class="mb-1 h5">253</p>
+                  <p class="small text-muted mb-0 mr-3">Pacijenta ukupno</p>
+                </div>
+                <div>
+                    <button class="btn btn-primary px-5 py-3 ml-5">ZAKAZIVANJE</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3 text-black">
+              <div class="mb-5">
+                <p class="lead fw-normal mb-1">Informacije</p>
+                <div class="p-4" >
+                    <p>Emai-l : {{ doctor_profile.email }}</p>
+                    <p>Telefon : {{ doctor_profile.phone }}</p>
+                </div>
+              </div>
+              <div style="margin-top: -5vh;" class=" justify-content-start  mb-4">
+                <p class=" fw-normal mb-0">Zakazani Pacijenti</p>
+              </div>
+              <div class="row g-2">
+                <div class="col mb-2">
+                    neki zika u ponedeljak 13h
+                </div>
+              </div>
+              <div class="col mb-2">
+                neki mika cetvrtak 12h
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+  {% endfor %}
+  {% endblock %}
