@@ -1,0 +1,1 @@
+web: gunicorn hipocrat.wsgi --log-file -
